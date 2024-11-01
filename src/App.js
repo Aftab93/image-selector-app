@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { Input } from "./components/Input";
+import { ImgContainer } from "./components/ImgContainer";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+export const App = () => {
+    const [images, setImages] = useState([]);
 
-export default App;
+    console.log(images);
+
+    return (
+        <div className='p-3 w-full h-full bg-zinc-800'>
+            <Input onAddClick={(inputValue) => {
+                setImages([
+                    ...images,
+                    inputValue
+                ]);
+            }} />
+            <ImgContainer images={images} removeHandler={(id) => {
+                setImages(images.filter(
+                    (d, index) => {
+                        return index !== id;
+                    }
+                ));
+            }} />
+        </div>
+    );
+};
